@@ -429,10 +429,15 @@ section{ padding:96px var(--edge); }
 
 .split{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
 .split img, .split .ph{ width:100%; }
+
+.mini-compare{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.mini-compare .ph{ aspect-ratio:3/4; }
 .ph{
   aspect-ratio:4/3; background:var(--paper-dim); border-radius:var(--radius-lg);
   border:1px solid var(--line); display:grid; place-items:center; box-shadow:var(--shadow-sm);
+  overflow:hidden;
 }
+.ph img{ width:100%; height:100%; object-fit:cover; display:block; }
 .ph span{ font-size:12px; color:var(--ink-45); font-weight:500; }
 
 .timeline{ border-left:2px solid var(--line-strong); padding-left:28px; display:flex; flex-direction:column; gap:36px; }
@@ -550,7 +555,7 @@ section{ padding:96px var(--edge); }
         <label for="service">Service Needed</label>
         <select id="service" name="service" required>
           <option value="" disabled selected>Select a service</option>
-          <option>Mold Remediation</option>
+          <option>Mold &amp; Mildew Extraction</option>
           <option>Water Damage Remediation</option>
           <option>Commercial Cleaning</option>
           <option>Move In / Move Out Cleaning</option>
@@ -624,7 +629,7 @@ section{ padding:96px var(--edge); }
         <div class="logo-mark"><span></span></div>
         <div class="logo-text"><b>PRECISION</b><small>Cleaning Services</small></div>
       </a>
-      <p class="footer-desc">Commercial and residential cleaning, mold remediation, and water damage remediation. Reliable, detail-oriented service you can schedule with confidence.</p>
+      <p class="footer-desc">Commercial and residential cleaning, mold & mildew extraction, and water damage remediation. Reliable, detail-oriented service you can schedule with confidence.</p>
       <div class="footer-social">
         <a href="https://facebook.com/PCScleaning1" target="_blank" rel="noopener" aria-label="Facebook">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
@@ -643,7 +648,7 @@ section{ padding:96px var(--edge); }
     <div class="footer-col">
       <h5>Services</h5>
       <ul>
-        <li><a href="services.html">Mold Remediation</a></li>
+        <li><a href="services.html">Mold &amp; Mildew Extraction</a></li>
         <li><a href="services.html">Water Damage</a></li>
         <li><a href="services.html">Commercial Cleaning</a></li>
         <li><a href="services.html">Deep Cleaning</a></li>
