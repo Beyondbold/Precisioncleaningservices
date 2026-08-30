@@ -432,7 +432,9 @@ section{ padding:96px var(--edge); }
 .ph{
   aspect-ratio:4/3; background:var(--paper-dim); border-radius:var(--radius-lg);
   border:1px solid var(--line); display:grid; place-items:center; box-shadow:var(--shadow-sm);
+  overflow:hidden;
 }
+.ph img{ width:100%; height:100%; object-fit:cover; display:block; }
 .ph span{ font-size:12px; color:var(--ink-45); font-weight:500; }
 
 .timeline{ border-left:2px solid var(--line-strong); padding-left:28px; display:flex; flex-direction:column; gap:36px; }
@@ -520,14 +522,14 @@ section{ padding:96px var(--edge); }
       </ul>
       <a class="btn btn-primary" style="margin-top:26px;" href="contact.html">Request Mold Inspection</a>
     </div>
-    <div class="ph bracket"><span class="bk-tr"></span><span class="bk-bl"></span><span>Photo: mold remediation job</span></div>
+    <div class="ph bracket"><img src="/assets/work/mold-remediation.jpg" alt="Precision Cleaning Services technician in PPE removing a mold-damaged wall stud during remediation" loading="lazy"></div>
   </div>
 </section>
 
 <!-- WATER DAMAGE -->
 <section class="band-tint">
   <div class="section-in split">
-    <div class="ph bracket" style="order:1"><span class="bk-tr"></span><span class="bk-bl"></span><span>Photo: water extraction / drying equipment</span></div>
+    <div class="ph bracket" style="order:1"><img src="/assets/work/water-damage-repair.jpg" alt="Open subfloor and plumbing exposed during a water damage repair job" loading="lazy"></div>
     <div style="order:2">
       <div class="eyebrow">Emergency Response · SVC 02</div>
       <h2 style="font-size:clamp(24px,3vw,32px); margin-top:14px;">Water Damage Remediation</h2>
