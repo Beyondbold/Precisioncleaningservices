@@ -221,6 +221,8 @@ button{ font-family:inherit; cursor:pointer; }
   max-width:var(--maxw); margin:0 auto;
   display:grid; grid-template-columns:1.05fr .95fr; gap:64px; align-items:center;
 }
+.hero-full{ grid-template-columns:1fr; }
+.hero-full .hero-copy{ max-width:760px; }
 .hero-kicker{ margin-bottom:22px; }
 .hero h1{
   font-size:clamp(34px,4.4vw,55px);
@@ -228,7 +230,7 @@ button{ font-family:inherit; cursor:pointer; }
 }
 .hero h1 em{ font-style:normal; color:var(--precision); }
 .hero-sub{
-  margin-top:20px; font-size:17px; color:var(--steel); max-width:46ch; line-height:1.65;
+  margin-top:20px; font-size:17px; color:var(--steel); max-width:52ch; line-height:1.65;
 }
 .hero-actions{ display:flex; gap:14px; margin-top:32px; flex-wrap:wrap; }
 .hero-trust{
@@ -238,20 +240,7 @@ button{ font-family:inherit; cursor:pointer; }
 .trust-stat b{ display:block; font-family:var(--display); font-size:21px; color:var(--ink); font-weight:700; }
 .trust-stat span{ font-size:12px; letter-spacing:.03em; color:var(--steel); font-weight:500; }
 
-/* ---------- signature: wipe-reveal panel ---------- */
-.reveal{
-  position:relative; aspect-ratio:4/5; overflow:hidden;
-  border-radius:var(--radius-lg);
-}
-.reveal-layer{ position:absolute; inset:0; }
-.reveal-after{
-  background: radial-gradient(130% 95% at 18% -6%, #248477 0%, var(--precision-dark) 60%, #0A342D 100%);
-}
-.reveal-before{
-  background: radial-gradient(130% 95% at 18% -6%, #7A6A56 0%, #463B2F 60%, #251F17 100%);
-  clip-path:inset(0 45% 0 0);
-  transition:clip-path .05s linear;
-}
+/* ---------- before/after pill tags (used in Services page photo comparison) ---------- */
 .reveal-tag{
   position:absolute; top:18px; z-index:3;
   font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#fff;
@@ -261,36 +250,6 @@ button{ font-family:inherit; cursor:pointer; }
 }
 .reveal-tag.before{ left:18px; }
 .reveal-tag.after{ right:18px; }
-.reveal-readout{ display:none; }
-.reveal-slider-track{
-  position:absolute; inset:0; z-index:4;
-  display:flex; align-items:center;
-}
-.reveal-slider{
-  -webkit-appearance:none; appearance:none;
-  width:100%; height:100%; margin:0; background:transparent; position:relative;
-}
-.reveal-slider::-webkit-slider-runnable-track{ background:transparent; height:100%; }
-.reveal-slider::-moz-range-track{ background:transparent; height:100%; }
-.reveal-slider::-webkit-slider-thumb{
-  -webkit-appearance:none; appearance:none;
-  width:44px; height:44px; margin-top:0; border-radius:50%;
-  background:#fff; border:none;
-  cursor:ew-resize;
-  box-shadow:0 6px 18px rgba(10,20,32,.35), 0 0 0 1px rgba(255,255,255,.4);
-  background-image: linear-gradient(135deg, transparent 46%, var(--precision) 46%, var(--precision) 54%, transparent 54%);
-  background-size:16px 16px; background-position:center; background-repeat:no-repeat;
-}
-.reveal-slider::-moz-range-thumb{
-  width:44px; height:44px; border-radius:50%; border:none;
-  background:#fff; cursor:ew-resize;
-  box-shadow:0 6px 18px rgba(10,20,32,.35);
-}
-.reveal-line{
-  position:absolute; top:0; bottom:0; width:3px; background:#fff;
-  box-shadow:0 0 0 5px rgba(255,255,255,.16); z-index:2; pointer-events:none;
-  border-radius:3px;
-}
 
 /* =========================== SECTIONS ============================ */
 section{ padding:96px var(--edge); }
@@ -675,20 +634,6 @@ document.addEventListener('DOMContentLoaded', function () {
       var isOpen = nav.classList.toggle('open');
       toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
-  }
-
-  // ===== Hero wipe-reveal slider (before/after) =====
-  var slider = document.querySelector('.reveal-slider');
-  var before = document.querySelector('.reveal-before');
-  var line = document.querySelector('.reveal-line');
-  if (slider && before) {
-    var update = function () {
-      var v = slider.value; // 0-100
-      before.style.clipPath = 'inset(0 ' + (100 - v) + '% 0 0)';
-      if (line) line.style.left = v + '%';
-    };
-    slider.addEventListener('input', update);
-    update();
   }
 
   // ===== Quote form → Google Sheet via Apps Script Web App =====
