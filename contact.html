@@ -641,12 +641,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ===== Quote form → Google Sheet via Apps Script Web App =====
-  // Submitted with fetch() rather than a native form POST. A plain HTML
-  // form navigating into an iframe loses its data on Apps Script's
-  // redirect; fetch() sends the request directly and isn't affected.
-  // mode:'no-cors' means we can't read the response (Apps Script doesn't
-  // send CORS headers), so success is inferred from the request not
-  // throwing a network error.
+  // Sent as a plain-text JSON body (not multipart FormData). Apps Script
+  // Web Apps redirect multipart POSTs internally in a way that can strip
+  // the request down to a GET, losing the form data — sending as
+  // text/plain avoids that redirect behavior. mode:'no-cors' means we
+  // can't read the response, so success is inferred from the request
+  // not throwing a network error.
   var form = document.querySelector('.quote-form');
   if (form) {
     form.addEventListener('submit', function (e) {
@@ -674,11 +674,14 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       var formData = new FormData(form);
+      var payload = {};
+      formData.forEach(function (value, key) { payload[key] = value; });
 
       fetch(action, {
         method: 'POST',
         mode: 'no-cors',
-        body: formData
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
       }).then(function () {
         if (status) {
           status.textContent = 'Thanks — your request was sent. We\'ll be in touch shortly.';
