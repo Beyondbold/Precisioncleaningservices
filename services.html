@@ -429,6 +429,9 @@ section{ padding:96px var(--edge); }
 
 .split{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
 .split img, .split .ph{ width:100%; }
+
+.mini-compare{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.mini-compare .ph{ aspect-ratio:3/4; }
 .ph{
   aspect-ratio:4/3; background:var(--paper-dim); border-radius:var(--radius-lg);
   border:1px solid var(--line); display:grid; place-items:center; box-shadow:var(--shadow-sm);
@@ -559,7 +562,10 @@ section{ padding:96px var(--edge); }
       </ul>
       <a class="btn btn-primary" style="margin-top:26px;" href="contact.html">Request a Commercial Quote</a>
     </div>
-    <div class="ph bracket"><span class="bk-tr"></span><span class="bk-bl"></span><span>Photo: commercial / office cleaning</span></div>
+    <div class="mini-compare">
+      <div class="ph bracket"><img src="/assets/work/kitchen-cleaning-before.jpg" alt="Commercial kitchen tile floor before deep cleaning, with grime and debris buildup" loading="lazy"><span class="reveal-tag before">Before</span></div>
+      <div class="ph bracket"><img src="/assets/work/kitchen-cleaning-after.jpg" alt="Same commercial kitchen after deep cleaning, tile and grout fully restored" loading="lazy"><span class="reveal-tag after">After</span></div>
+    </div>
   </div>
 </section>
 
