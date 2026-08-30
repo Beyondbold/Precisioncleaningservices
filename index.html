@@ -125,14 +125,10 @@ button{ font-family:inherit; cursor:pointer; }
   background:var(--precision);
 }
 
-/* ---------- faint backdrop texture — barely-there, not a blueprint grid ---------- */
+/* ---------- .grid-bg: texture removed per feedback, class kept inert
+   so no HTML changes are needed on pages that still reference it ---------- */
 .grid-bg{
   position:relative;
-  background-image: radial-gradient(var(--line) 1px, transparent 1px);
-  background-size:22px 22px;
-  background-position: -4px -4px;
-  -webkit-mask-image: linear-gradient(to bottom, black, transparent 92%);
-  mask-image: linear-gradient(to bottom, black, transparent 92%);
 }
 
 /* ---------- soft frame — replaces the old hard corner-bracket device ---------- */
