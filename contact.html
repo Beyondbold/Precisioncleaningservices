@@ -468,7 +468,7 @@ section{ padding:88px var(--edge); }
          Until that URL is pasted in, the form shows a "not connected"
          message instead of silently failing.
     -->
-    <form class="quote-form" action="https://script.google.com/macros/s/AKfycbzfDI2zturSPleWgv4Nl9kGjsr9UaKIG3ZkYx_nN7q77fmQeKUcUDJBPpLCpvKncoLAgA/exec" method="POST" target="lead-target-frame">
+    <form class="quote-form" action="https://script.google.com/macros/s/AKfycbzfDI2zturSPleWgv4Nl9kGjsr9UaKIG3ZkYx_nN7q77fmQeKUcUDJBPpLCpvKncoLAgA/exec" method="POST">
       <div class="field-row">
         <div class="field">
           <label for="name">Full Name</label>
@@ -529,10 +529,6 @@ section{ padding:88px var(--edge); }
       <div class="form-status" role="status"></div>
     </form>
 
-    <!-- Google Apps Script Web Apps don't return CORS headers, so the form
-         posts into this hidden iframe instead of using fetch/XHR. The page
-         never navigates away and there's nothing for the visitor to see. -->
-    <iframe name="lead-target-frame" style="display:none" title="Form submission target"></iframe>
 
     <div>
       <div class="info-card">
@@ -645,18 +641,22 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ===== Quote form → Google Sheet via Apps Script Web App =====
-  // The form posts into a hidden iframe (not a fetch call), so there is
-  // no CORS issue talking to the Apps Script Web App from a different domain.
+  // Submitted with fetch() rather than a native form POST. A plain HTML
+  // form navigating into an iframe loses its data on Apps Script's
+  // redirect; fetch() sends the request directly and isn't affected.
+  // mode:'no-cors' means we can't read the response (Apps Script doesn't
+  // send CORS headers), so success is inferred from the request not
+  // throwing a network error.
   var form = document.querySelector('.quote-form');
   if (form) {
     form.addEventListener('submit', function (e) {
+      e.preventDefault();
       var status = form.querySelector('.form-status');
       var action = form.getAttribute('action') || '';
 
       // If the Apps Script URL hasn't been pasted in yet, don't let the
       // form fail silently — tell whoever's testing it what to do.
       if (action.indexOf('PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE') !== -1) {
-        e.preventDefault();
         if (status) {
           status.textContent = 'Form is not connected yet. Deploy the Google Apps Script (see apps-script.gs / setup steps) and paste the Web App URL into the form action in contact.html.';
           status.classList.add('show');
@@ -669,18 +669,28 @@ document.addEventListener('DOMContentLoaded', function () {
       if (status) {
         status.textContent = 'Sending your request…';
         status.classList.add('show');
+        status.style.borderColor = '';
+        status.style.background = '';
       }
-      // Native submit proceeds into the hidden iframe — page never navigates away.
-      // We can't read the cross-origin iframe's response, so we optimistically
-      // confirm after a short delay and reset the form.
-      setTimeout(function () {
+
+      var formData = new FormData(form);
+
+      fetch(action, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData
+      }).then(function () {
         if (status) {
           status.textContent = 'Thanks — your request was sent. We\'ll be in touch shortly.';
-          status.style.borderColor = '';
-          status.style.background = '';
         }
         form.reset();
-      }, 1200);
+      }).catch(function () {
+        if (status) {
+          status.textContent = 'Something went wrong sending this — please call or message us directly instead.';
+          status.style.borderColor = '#C6541D';
+          status.style.background = '#F6E7DE';
+        }
+      });
     });
   }
 });
