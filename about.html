@@ -152,6 +152,7 @@ button{ font-family:inherit; cursor:pointer; }
   padding:15px var(--edge);
   max-width:var(--maxw); margin:0 auto;
   gap:24px;
+  position:relative;
 }
 .logo{ display:flex; align-items:center; gap:11px; }
 .logo-mark{
@@ -194,9 +195,13 @@ button{ font-family:inherit; cursor:pointer; }
 }
 .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{
   content:""; display:block; width:18px; height:2px; border-radius:2px; background:var(--ink); position:relative;
+  transition:background .15s var(--ease), transform .2s var(--ease), top .2s var(--ease);
 }
 .nav-toggle span::before{ position:absolute; top:-6px; }
 .nav-toggle span::after{ position:absolute; top:6px; }
+.nav-toggle[aria-expanded="true"] span{ background:transparent; }
+.nav-toggle[aria-expanded="true"] span::before{ top:0; transform:rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span::after{ top:0; transform:rotate(-45deg); }
 
 /* ---------- buttons ---------- */
 .btn{
@@ -414,7 +419,16 @@ section{ padding:96px var(--edge); }
 
 /* =========================== RESPONSIVE =========================== */
 @media (max-width: 980px){
-  .main-nav{ display:none; }
+  .main-nav{
+    display:none;
+    position:absolute; top:calc(100% + 1px); left:0; right:0;
+    flex-direction:column; align-items:stretch; gap:2px;
+    background:var(--panel); border-bottom:1px solid var(--line);
+    box-shadow:var(--shadow-md);
+    padding:10px var(--edge) 18px;
+  }
+  .main-nav.open{ display:flex; }
+  .main-nav a{ padding:13px 16px; border-radius:var(--radius-sm); }
   .nav-toggle{ display:flex; }
   .hero{ grid-template-columns:1fr; padding-top:40px; }
   .form-grid{ grid-template-columns:1fr; }
